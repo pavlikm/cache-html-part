@@ -6,8 +6,21 @@
   "scripts": {
     "build": "uglifyjs --compress --output browser/stash-minified.js -- browser/stash.js && uglifyjs --compress --output browser/unstash-minified.js -- browser/unstash.js"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:pavlikm/stash.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pavlikm/stash/issues"
+  },
+  "keywords": [
+    "express",
+    "middleware",
+    "render",
+    "twig",
+    "cache",
+    "static-content"
+  ],
   "license": "ISC",
   "dependencies": {
     "uglify-js": "^3.13.0"
