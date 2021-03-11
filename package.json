@@ -4,13 +4,12 @@
   "description": "cache static parts of web page in browser",
   "main": "index.js",
   "scripts": {
-    "build": "uglifyjs --compress --output browser/stash-minified.js -- browser/stash.js && uglifyjs --compress --output browser/unstash-minified.js -- browser/unstash.js",
-    "prepublish": "npm run build"
+    "build": "uglifyjs --compress --output browser/stash-minified.js -- browser/stash.js && uglifyjs --compress --output browser/unstash-minified.js -- browser/unstash.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dev-dependencies": {
+  "dependencies": {
     "uglify-js": "^3.13.0"
   }
 }
