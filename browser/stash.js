@@ -1,6 +1,6 @@
-var t = 'stash';
+var t = 'static';
 var d = document;
-var all = d.body.innerHTML.matchAll(/<!-- stash ([a-f0-9]+?) -->([\s\S]*?)<!-- stash-end -->/gmi);
+var all = d.body.innerHTML.matchAll(/<!-- static ([a-f0-9]+?) -->([\s\S]*?)<!-- static-end -->/gmi);
 const arr = [...all];
 var s = sessionStorage;
 for (var i = 0; i < arr.length; i++) {

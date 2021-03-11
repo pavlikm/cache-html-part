@@ -4,14 +4,14 @@ var pjson = require('./package.json');
 
 function stash(req, res, next) {
     var originalSend = res.send;
-    const START_TAG = '<!-- stash -->';
-    const END_TAG = '<!-- stash-end -->';
+    const START_TAG = '<!-- static -->';
+    const END_TAG = '<!-- static-end -->';
     var needStashScript, needUnstashScript = false;
 
     res.send = function (chunk) {
         if (chunk.toString() && chunk.toString().indexOf(START_TAG) > -1 && chunk.toString().indexOf(END_TAG) > -1 ) {
             let stashed = req.headers.cookie ? req.headers.cookie.split("=").pop().split(",") : [];
-            var matchAll = chunk.toString().matchAll(/<!-- stash -->([\s\S]*?)<!-- stash-end -->/gi);
+            var matchAll = chunk.toString().matchAll(/<!-- static -->([\s\S]*?)<!-- static-end -->/gi);
             const arr = [...matchAll];
             for(var i=0; i<arr.length; i++){
                 let withTag = arr[i][0];
@@ -20,10 +20,10 @@ function stash(req, res, next) {
                 let replace = '';
                 if (stashed.indexOf(hash) > -1){
                     needUnstashScript = true;
-                    replace = '<stash ref="'+hash+'"></stash>';
+                    replace = '<static ref="'+hash+'"></static>';
                 } else {
                     needStashScript = true;
-                    replace = "<!-- stash "+hash+" -->"+withoutTag+"<!-- stash-end -->";
+                    replace = "<!-- static "+hash+" -->"+withoutTag+"<!-- static-end -->";
                 }
                 chunk = chunk.toString().replace(withTag, replace);
             }

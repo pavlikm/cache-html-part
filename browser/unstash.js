@@ -1,4 +1,4 @@
-var t = 'stash';
+var t = 'static';
 var d = document;
 var s = sessionStorage;
 var x = d.getElementsByTagName(t);

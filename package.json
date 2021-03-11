@@ -1,5 +1,5 @@
 {
-  "name": "stash",
+  "name": "muutumatu",
   "version": "1.0.0",
   "description": "cache static parts of web page in browser",
   "main": "index.js",
