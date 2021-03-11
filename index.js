@@ -27,7 +27,7 @@ function stash(req, res, next) {
                 }
                 chunk = chunk.toString().replace(withTag, replace);
             }
-            let script = "";
+            let script = "/* muutumatu "+pjson.version+"*/";
             if(needStashScript){
                 script += fs.readFileSync(__dirname + '/browser/stash-minified.js', 'utf8');
             }
