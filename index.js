@@ -7,6 +7,7 @@ function stash(req, res, next) {
     const START_TAG = '<!-- stash -->';
     const END_TAG = '<!-- stash-end -->';
     var needStashScript, needUnstashScript = false;
+
     res.send = function (chunk) {
         if (chunk.toString() && chunk.toString().indexOf(START_TAG) > -1 && chunk.toString().indexOf(END_TAG) > -1 ) {
             let stashed = req.headers.cookie ? req.headers.cookie.split("=").pop().split(",") : [];
@@ -37,6 +38,16 @@ function stash(req, res, next) {
             res.setHeader('Content-Length', chunk.length);
         }
         originalSend.apply(res, arguments);
+    };
+    var _render = res.render;
+    res.render = function( view, options, fn ) {
+        if(fn === undefined){
+            _render.call( this, view, options, (err, out) => {
+                res.send(out);
+            } );
+        } else {
+            _render.call( this, view, options, fn);
+        }
     };
     next();
 }
