@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:pavlikm/stash.git"
+    "url": "git@github.com:pavlikm/muutumatu.git"
   },
   "bugs": {
-    "url": "https://github.com/pavlikm/stash/issues"
+    "url": "https://github.com/pavlikm/muutumatu/issues"
   },
   "keywords": [
     "express",
