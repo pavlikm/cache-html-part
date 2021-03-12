@@ -1,5 +1,5 @@
 {
-  "name": "muutumatu",
+  "name": "cache-html-part",
   "version": "1.0.0",
   "description": "cache static parts of web page in browser",
   "main": "index.js",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:pavlikm/muutumatu.git"
+    "url": "git@github.com:pavlikm/cache-html-part.git"
   },
   "bugs": {
-    "url": "https://github.com/pavlikm/muutumatu/issues"
+    "url": "https://github.com/pavlikm/cache-html-part/issues"
   },
   "keywords": [
     "express",
