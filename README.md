@@ -9,7 +9,7 @@ npm install cache-html-part
 ```
 
 ## use
-Use muutumatu as express middleware:
+Use cache-html-part as express middleware:
 ```javascript
 const express = require('express');
 const http = require('http');
