@@ -27,16 +27,20 @@ function stash(req, res, next) {
                     needStashScript = true;
                     replace = "<!-- static " + hash + " -->" + withoutTag + "<!-- static-end -->";
                 }
+                if(i == arr.length-1){
+                    let script = "/* cache-html-part " + pjson.version + "*/";
+                    if (needStashScript) {
+                        script += fs.readFileSync(__dirname + '/browser/stash-minified.js', 'utf8');
+                    }
+                    if (needUnstashScript) {
+                        script += fs.readFileSync(__dirname + '/browser/unstash-minified.js', 'utf8');
+                    }
+                    replace += '<script>'+script+'</script>';
+                }
                 chunk = chunk.toString().replace(withTag, replace);
             }
-            let script = "/* cache-html-part " + pjson.version + "*/";
-            if (needStashScript) {
-                script += fs.readFileSync(__dirname + '/browser/stash-minified.js', 'utf8');
-            }
-            if (needUnstashScript) {
-                script += fs.readFileSync(__dirname + '/browser/unstash-minified.js', 'utf8');
-            }
-            arguments[0] = chunk.toString().replace(/(<\/body>)/, "<script>" + script + "</script>\n\n$1");
+
+            arguments[0] = chunk.toString();
             res.setHeader('Content-Length', chunk.length);
         }
         originalSend.apply(res, arguments);
