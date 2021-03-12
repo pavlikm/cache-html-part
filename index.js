@@ -51,8 +51,11 @@ function stash(req, res, next) {
         }
     };
     res.end = function (chunk) {
-        res.end = originalEnd;
-        res.send(chunk);
+        if(typeof chunk == "string") {
+            res.send(chunk);
+        } else {
+            originalEnd.call(this, chunk);
+        }
     };
 
     next();

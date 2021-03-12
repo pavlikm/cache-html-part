@@ -52,5 +52,5 @@ and mark any static part of your page with html comment `<!-- static -->` and `<
 </html>
 ```
 
-## muutumatu and SEO
+## cache-html-part and SEO
 **cache-html-part** will not affect any SEO bots and crawlers. It use html comments which are "invisible" for bots.
