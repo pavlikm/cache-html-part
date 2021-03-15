@@ -11,7 +11,7 @@ function stash(req, res, next) {
     var needStashScript, needUnstashScript = false;
 
     res.send = function (chunk) {
-        if (chunk.toString() && chunk.toString().indexOf(START_TAG) > -1 && chunk.toString().indexOf(END_TAG) > -1) {
+        if (chunk.toString() && chunk.toString().indexOf(START_TAG) > -1 && chunk.toString().indexOf(END_TAG) > -1 && !req.xhr) {
             let stashed = req.headers.cookie ? req.headers.cookie.split("=").pop().split(",") : [];
             var matchAll = chunk.toString().matchAll(/<!-- static -->([\s\S]*?)<!-- static-end -->/gi);
             const arr = [...matchAll];
@@ -25,9 +25,9 @@ function stash(req, res, next) {
                     replace = '<static ref="' + hash + '"></static>';
                 } else {
                     needStashScript = true;
-                    replace = "<!-- static " + hash + " -->" + withoutTag + "<!-- static-end -->";
+                    replace = "<!-- static " + hash + " -->" + withoutTag + END_TAG;
                 }
-                if(i == arr.length-1){
+                if(i === arr.length-1){
                     let script = "/* cache-html-part " + pjson.version + "*/";
                     if (needStashScript) {
                         script += fs.readFileSync(__dirname + '/browser/stash-minified.js', 'utf8');
