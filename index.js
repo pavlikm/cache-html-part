@@ -35,7 +35,7 @@ function stash(req, res, next) {
                     if (needUnstashScript) {
                         script += fs.readFileSync(__dirname + '/browser/unstash-minified.js', 'utf8');
                     }
-                    replace += '<script>exec(atob("'+btoa(script)+'"));</script>';
+                    replace += '<script>'+script+'</script>';
                 }
                 chunk = chunk.toString().replace(withTag, replace);
             }
