@@ -45,9 +45,11 @@ function stash(req, res, next) {
         }
         originalSend.apply(res, arguments);
     };
+
     res.write = function(chunk){
         res.send(chunk);
     }
+
     res.render = function (view, options, fn) {
         if (fn === undefined) {
             originalRender.call(this, view, options, (err, out) => {
