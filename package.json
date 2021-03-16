@@ -1,6 +1,6 @@
 {
   "name": "cache-html-part",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "cache static parts of web page in browser",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,7 @@
     "static-content"
   ],
   "license": "ISC",
-  "dependencies": {
+  "dev-dependencies": {
     "uglify-js": "^3.13.0"
   }
 }
