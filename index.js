@@ -10,7 +10,7 @@ function stash(req, res, next) {
     const END_TAG = '<!-- static-end -->';
     var routeInitialized = false;
 
-    let script = fs.readFileSync(__dirname + '/browser/min.js', 'utf8');
+    let script = fs.readFileSync(__dirname + '/browser/cache-html-part.min.js', 'utf8');
     let scriptUrl = crypto.createHash('sha1').update(script).digest('hex') + "/cache-html-part.min.js";
     let integrity = crypto.createHash('md5').update(script).digest('hex');
     if(!routeInitialized){
