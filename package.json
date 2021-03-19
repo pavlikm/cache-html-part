@@ -4,7 +4,7 @@
   "description": "cache static parts of web page in browser",
   "main": "index.js",
   "scripts": {
-    "build": "uglifyjs --compress --output browser/stash-minified.js -- browser/stash.js && uglifyjs --compress --output browser/unstash-minified.js -- browser/unstash.js"
+    "build": "uglifyjs --compress --output browser/cache-html-part.min.js -- browser/cache-html-part.js"
   },
   "repository": {
     "type": "git",

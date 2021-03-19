@@ -8,10 +8,23 @@ function stash(req, res, next) {
     var originalRender = res.render;
     const START_TAG = '<!-- static -->';
     const END_TAG = '<!-- static-end -->';
-    var needStashScript, needUnstashScript = false;
+    var routeInitialized = false;
+
+    let script = fs.readFileSync(__dirname + '/browser/min.js', 'utf8');
+    let scriptUrl = crypto.createHash('sha1').update(script).digest('hex') + "/cache-html-part.min.js";
+    let integrity = crypto.createHash('md5').update(script).digest('hex');
+    if(!routeInitialized){
+        routeInitialized = true;
+        res.app.get("/"+scriptUrl, (req, res) => {
+            res.set('Cache-control', 'public, max-age=3600');
+            var html = fs.readFileSync(__dirname + '/browser/cache-html-part.min.js', 'utf8');
+            res.write(html);
+            res.end();
+        })
+    }
 
     res.send = function (chunk) {
-        if (chunk.toString() && chunk.toString().indexOf(START_TAG) > -1 && chunk.toString().indexOf(END_TAG) > -1 && !req.xhr) {
+        if (chunk && chunk.toString() && chunk.toString().indexOf(START_TAG) > -1 && chunk.toString().indexOf(END_TAG) > -1 && !req.xhr) {
             let stashed = req.headers.cookie ? req.headers.cookie.split("=").pop().split(",") : [];
             var matchAll = chunk.toString().matchAll(/<!-- static -->([\s\S]*?)<!-- static-end -->/gi);
             const arr = [...matchAll];
@@ -21,21 +34,12 @@ function stash(req, res, next) {
                 let hash = crypto.createHash('md5').update(withoutTag + pjson.version).digest('hex');
                 let replace = '';
                 if (stashed.indexOf(hash) > -1) {
-                    needUnstashScript = true;
                     replace = '<static ref="' + hash + '"></static>';
                 } else {
-                    needStashScript = true;
                     replace = "<!-- static " + hash + " -->" + withoutTag + END_TAG;
                 }
                 if(i === arr.length-1){
-                    let script = "/* cache-html-part " + pjson.version + "*/";
-                    if (needStashScript) {
-                        script += fs.readFileSync(__dirname + '/browser/stash-minified.js', 'utf8');
-                    }
-                    if (needUnstashScript) {
-                        script += fs.readFileSync(__dirname + '/browser/unstash-minified.js', 'utf8');
-                    }
-                    replace += '<script>'+script+'</script>';
+                    replace += '<script src="/'+scriptUrl+'" type="text/javascript" integrity="'+integrity+'"></script>';
                 }
                 chunk = chunk.toString().replace(withTag, replace);
             }
@@ -53,14 +57,6 @@ function stash(req, res, next) {
             });
         } else {
             originalRender.call(this, view, options, fn);
-        }
-    };
-    
-    res.end = function (chunk) {
-        if(typeof chunk == "string") {
-            res.send(chunk);
-        } else {
-            originalEnd.call(this, chunk);
         }
     };
 
