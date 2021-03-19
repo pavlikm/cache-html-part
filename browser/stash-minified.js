@@ -1,1 +1,0 @@
-!function(){for(var d=document,arr=[...d.body.innerHTML.matchAll(/<!-- static ([a-f0-9]+?) -->([\s\S]*?)<!-- static-end -->/gim)],s=sessionStorage,i=0;i<arr.length;i++)s.setItem(arr[i][1],arr[i][2]);var v=Object.keys(s);d.cookie="static="+v+"; expires=0; path=/"}();
