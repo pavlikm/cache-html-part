@@ -1,6 +1,6 @@
 {
   "name": "cache-html-part",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "cache static parts of web page in browser",
   "main": "index.js",
   "scripts": {
