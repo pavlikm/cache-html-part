@@ -17,8 +17,7 @@ function stash(req, res, next) {
         routeInitialized = true;
         res.app.get("/"+scriptUrl, (req, res) => {
             res.set('Cache-control', 'public, max-age=3600');
-            var html = fs.readFileSync(__dirname + '/browser/cache-html-part.min.js', 'utf8');
-            res.write(html);
+            res.write(script);
             res.end();
         })
     }
